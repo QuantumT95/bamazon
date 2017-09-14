@@ -54,6 +54,7 @@ function start() {
         for (var i = 0; i < results.length; i++) {
           if (results[i].product_name === answer.choice) {
             chosenItem = results[i];
+            console.log(chosenItem);
           }
         }
 
@@ -68,7 +69,7 @@ function start() {
                 stock_quantity: subtract
               },
               {
-                item_id: chosenItem.id
+                item_id: chosenItem.item_id
               }
             ],
             function(error) {
@@ -76,8 +77,9 @@ function start() {
               console.log("order has been placed successfully!");
               // how much of the product left we have in stack after purchase
 			  console.log(subtract);
-            }
-          );
+			  console.log(chosenItem);
+            });
+          console.log(subtract);
         }
         else {
          // Not enough in stock
