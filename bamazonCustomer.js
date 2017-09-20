@@ -54,14 +54,14 @@ function start() {
         for (var i = 0; i < results.length; i++) {
           if (results[i].product_name === answer.choice) {
             chosenItem = results[i];
-            console.log(chosenItem);
           }
         }
 
-        // determine if bid was high enough
+        // determine if we have enough in stock
         if (chosenItem.stock_quantity > parseInt(answer.quantity)) {
-          // bid was high enough, so update db, let the user know, and start over
+          // if we do, start getting total and updating database
           subtract = chosenItem.stock_quantity - parseInt(answer.quantity);
+          total = chosenItem.price * answer.quantity;
           connection.query(
             "UPDATE products SET ? WHERE ?",
             [
@@ -76,10 +76,9 @@ function start() {
               if (error) throw err;
               console.log("order has been placed successfully!");
               // how much of the product left we have in stack after purchase
-			  console.log(subtract);
-			  console.log(chosenItem);
+
+			  console.log("Your total is $" + total);
             });
-          console.log(subtract);
         }
         else {
          // Not enough in stock
